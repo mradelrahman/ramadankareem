@@ -3,294 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدورة الرمضانية | MR.ABDELRAHMAN</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <title>NOVAx | Gaming & Social Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --primary: #007bff; 
-            --accent: #ffd700; 
-            --bg: #070b14;
-            --card-bg: rgba(255, 255, 255, 0.08);
-        }
-
-        body, html { 
-            margin: 0; padding: 0; 
-            font-family: 'Cairo', sans-serif; 
-            background: var(--bg); 
-            color: white; 
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* لودر الدخول */
-        #entry-loader { 
-            position: fixed; inset: 0; 
-            background: var(--bg); 
-            z-index: 9999; 
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center; 
-            transition: 0.8s ease-in-out;
-        }
-        .loader-ball { font-size: 50px; animation: bounceBall 0.6s infinite alternate; }
-        @keyframes bounceBall { from { transform: translateY(0); } to { transform: translateY(-30px); } }
-
-        /* العناصر العائمة في الخلفية (كلمات وأيقونات) */
-        .bg-elements { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-        .float-item { 
-            position: absolute; 
-            white-space: nowrap;
-            color: rgba(255, 215, 0, 0.25); 
-            font-weight: bold;
-            pointer-events: none;
-            user-select: none;
-            animation: floatUp linear infinite;
-        }
-        @keyframes floatUp {
-            from { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.5; }
-            90% { opacity: 0.5; }
-            to { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
-        }
-
-        .container { 
-            max-width: 480px; 
-            margin: 20px auto; 
-            padding: 20px; 
-            position: relative;
-            z-index: 10;
-        }
-        
-        .header-section { text-align: center; margin-bottom: 25px; }
-        .mr-img { 
-            width: 130px; height: 130px; 
-            border-radius: 50%;
-            border: 3px solid var(--accent);
-            box-shadow: 0 0 25px rgba(0, 123, 255, 0.5);
-            margin-bottom: 15px;
-            object-fit: cover;
-        }
-
-        .form-card { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(15px); 
-            -webkit-backdrop-filter: blur(15px);
-            padding: 30px 20px; 
-            border-radius: 25px; 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-        }
-
-        .input-group { margin-bottom: 18px; text-align: right; }
-        .input-group label { display: block; margin-bottom: 8px; font-size: 0.85rem; color: #cbd5e1; }
-        .input-group input, .input-group select { 
-            width: 100%; padding: 14px; 
-            border-radius: 12px; border: 1.5px solid rgba(255,255,255,0.1); 
-            background: rgba(15, 23, 42, 0.9); color: white; 
-            box-sizing: border-box; transition: 0.3s; font-family: 'Cairo';
-        }
-        .input-group input:focus { border-color: var(--primary); outline: none; }
-
-        .btn-main { 
-            width: 100%; padding: 16px; border: none; border-radius: 12px; 
-            background: linear-gradient(135deg, #007bff, #00c6ff); 
-            color: white; font-size: 1.1rem; font-weight: 800; cursor: pointer; 
-            transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px;
-        }
-        .btn-main:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0, 123, 255, 0.3); }
-
-        /* تنبيهات */
-        .msg-box { 
-            display: none; padding: 12px; border-radius: 10px; margin-bottom: 15px; 
-            text-align: center; font-size: 0.9rem; font-weight: bold;
-        }
-
-        /* المودال */
-        .modal { 
-            display: none; position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.9); z-index: 2000; 
-            align-items: center; justify-content: center; backdrop-filter: blur(10px);
-            padding: 20px;
-        }
-        .modal-content { 
-            background: #111827; padding: 30px; border-radius: 25px; 
-            width: 100%; max-width: 400px; text-align: right; 
-            border: 1px solid var(--accent);
-        }
+        :root { --primary: #8b5cf6; --secondary: #06b6d4; --dark: #0f172a; }
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: #fff; }
+        .orbitron { font-family: 'Orbitron', sans-serif; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .neon-btn { background: linear-gradient(45deg, var(--primary), var(--secondary)); transition: 0.3s; }
+        .neon-btn:hover { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); transform: translateY(-2px); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
 
-    <div id="entry-loader">
-        <div class="loader-ball">⚽</div>
-        <h3 style="color: var(--accent); margin-top: 20px;">رمضان كريم...</h3>
+    <div id="loader" class="fixed inset-0 z-[300] bg-slate-950 flex items-center justify-center transition-opacity duration-500">
+        <h1 class="orbitron text-4xl font-black text-purple-500 animate-pulse">NOVA<span class="text-white text-2xl">x</span></h1>
     </div>
 
-    <div class="bg-elements" id="bgItems"></div>
-
-    <div class="container">
-        <div class="header-section">
-            <div style="color: var(--accent); font-weight: 900; margin-bottom: 5px;">🌙 دَوْرَة رَمَضَان 🌙</div>
-            <img src="mr.png" alt="Mr. Abdelrahman" class="mr-img" onerror="this.src='https://ui-avatars.com/api/?name=Mr+Abdelrahman&background=007bff&color=fff'">
-            <h2 style="margin: 0; font-weight: 900;">MR. ABDELRAHMAN</h2>
-            <p style="color: #94a3b8; font-size: 0.9rem;">فاكر ان رمضان معانا مذاكرة بس !!! تبقى غلطان
-                سجل دلوقتى علشان تلحق فرصتك 🌙⚽  </p>
-        </div>
-
-        <div class="form-card">
-            <div id="msgBox" class="msg-box"></div>
+    <div id="auth-modal" class="fixed inset-0 z-[200] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass w-full max-w-md p-8 rounded-3xl relative">
+            <button onclick="toggleAuthModal(false)" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             
-            <div class="input-group">
-                <label><i class="fas fa-user"></i> الاسم</label>
-                <input type="text" id="stuName" placeholder="اكتب اسمك هنا">
+            <div id="auth-step-1">
+                <h2 class="orbitron text-2xl font-bold text-center text-purple-500 mb-6">WELCOME TO NOVAx</h2>
+                
+                <div class="space-y-4">
+                    <button id="google-login" class="w-full bg-white text-black py-3 rounded-xl font-bold flex items-center justify-center gap-3">
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18"> الدخول عبر جوجل
+                    </button>
+
+                    <div class="relative py-2"><hr class="border-white/10"><span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-900 px-2 text-xs text-gray-500">أو يدوي</span></div>
+
+                    <input type="text" id="reg-name" placeholder="اسم المستخدم" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
+                    <input type="text" id="reg-id" placeholder="الجيميل أو رقم الهاتف (+20)" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
+                    <input type="password" id="reg-p1" placeholder="كلمة المرور" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
+                    
+                    <div id="recaptcha-container"></div> <button id="main-auth-btn" class="neon-btn w-full py-4 rounded-xl font-black">متابعة</button>
+                </div>
             </div>
-            <div class="input-group">
-                <label><i class="fas fa-graduation-cap"></i> الصف الدراسي</label>
-                <select id="stuGrade">
-                    <option value="الأول الثانوي">الأول الثانوي</option>
-                    <option value="الثاني الثانوي">الثاني الثانوي</option>
-                    <option value="الثالث الثانوي">الثالث الثانوي</option>
-                </select>
+
+            <div id="auth-otp" class="hidden text-center">
+                <h2 class="text-xl font-bold mb-4">أدخل كود التحقق</h2>
+                <p class="text-gray-400 text-sm mb-6">لقد أرسلنا كوداً مكوناً من 6 أرقام</p>
+                <input type="text" id="otp-input" placeholder="0 0 0 0 0 0" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl text-center text-2xl tracking-widest outline-none">
+                <button id="verify-otp-btn" class="neon-btn w-full py-4 rounded-xl font-black mt-6">تأكيد الرمز</button>
             </div>
-            <div class="input-group">
-                <label><i class="fas fa-users"></i> مجموعتك</label>
-                <input type="text" id="stuGroup" placeholder="مثال:الثلاثاء الساعة ٤">
-            </div>
-            <div class="input-group">
-                <label><i class="fas fa-phone"></i> رقم التليفون</label>
-                <input type="tel" id="stuPhone" placeholder="01xxxxxxxxx">
-            </div>
-            <button class="btn-main" id="btnStep1">
-                سجل الآن ⚽
-            </button>
         </div>
     </div>
 
-    <div class="modal" id="termsModal">
-        <div class="modal-content">
-            <h3 style="color: var(--accent); text-align: center;">📜 قوانين الدورة</h3>
-            <div style="font-size: 0.9rem; line-height: 1.8; color: #cbd5e1;">
-                • الالتزام بالروح الرياضية.<br>
-                • الحضور في المواعيد المحددة للمباريات.<br>
-                • قرار المستر واللجنة نهائي.<br>
-                • أي خروج عن النص يؤدي للاستبعاد.
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="orbitron text-2xl font-black cursor-pointer" onclick="showTab('home')">NOVA<span class="text-purple-500">x</span></h1>
+            <div class="flex items-center gap-4">
+                <div class="glass px-4 py-1.5 rounded-full text-cyan-400 font-bold" id="user-balance">0.00 EGP</div>
+                <button onclick="showTab('dashboard')" class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center"><i class="fa-solid fa-user"></i></button>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; margin: 20px 0;">
-                <input type="checkbox" id="agree" style="width: 20px; height: 20px;">
-                <label for="agree" style="font-weight: bold;">أوافق على جميع الشروط</label>
-            </div>
-            <button class="btn-main" id="btnFinal">تأكيد التسجيل النهائي</button>
-            <button style="background:none; border:none; color:#64748b; width:100%; margin-top:15px; cursor:pointer;" onclick="document.getElementById('termsModal').style.display='none'">رجوع</button>
         </div>
-    </div>
+    </nav>
+
+    <main class="container mx-auto px-4 pt-28 pb-12">
+        <section id="home" class="tab-content active text-center">
+            <h2 class="text-5xl font-black mb-8 leading-tight">شحن الألعاب <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-400">بلمسة واحدة</span></h2>
+            <button onclick="showTab('services')" class="neon-btn px-12 py-4 rounded-full font-bold text-lg">تصفح الخدمات</button>
+        </section>
+
+        <section id="services" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="services-grid">
+                <div onclick="checkAndOrder('PUBG')" class="glass p-6 rounded-3xl cursor-pointer hover:border-purple-500 transition">
+                    <img src="https://files.freemyfire.com/posts/pubg-mobile.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
+                    <h3 class="text-xl font-bold">ببجي موبايل (UC)</h3>
+                    <p class="text-gray-500 text-sm">شحن فوري عبر الـ ID</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard" class="tab-content">
+            <div class="glass p-8 rounded-3xl max-w-lg mx-auto">
+                <h3 class="text-2xl font-black mb-2" id="profile-name">مستخدم</h3>
+                <p class="text-gray-500 mb-6" id="profile-email">---</p>
+                <button id="logout-btn" class="text-red-500 font-bold hover:underline">تسجيل الخروج</button>
+            </div>
+        </section>
+    </main>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-        import { getDatabase, ref, push, get, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
+        // Your Config
         const firebaseConfig = {
-            apiKey: "AIzaSyBj0226-WlPuKCQZ36HKnE3I3WlxDCavyw",
-            authDomain: "ramadan-kareem-6add7.firebaseapp.com",
-            projectId: "ramadan-kareem-6add7",
-            storageBucket: "ramadan-kareem-6add7.firebasestorage.app",
-            messagingSenderId: "424148704734",
-            appId: "1:424148704734:web:fb86d2b581822123b0d14f"
+            apiKey: "AIzaSyCsZBSHCRHir1Qxk5opZLZsfazCL7IOAcc",
+            authDomain: "novax-4249e.firebaseapp.com",
+            projectId: "novax-4249e",
+            storageBucket: "novax-4249e.firebasestorage.app",
+            messagingSenderId: "705521379752",
+            appId: "1:705521379752:web:10800a86fa18a8b1eb959d",
+            measurementId: "G-VSXCYH6WQJ"
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        let confirmationResult = null;
 
-        // إنشاء الخلفية المتحركة
-        function initBg() {
-            const container = document.getElementById('bgItems');
-            const items = ['⚽', '🌙', '✨', 'رمضان كريم', '⚽', '⭐'];
-            for(let i=0; i<25; i++) {
-                let div = document.createElement('div');
-                div.className = 'float-item';
-                let content = items[Math.floor(Math.random()*items.length)];
-                div.innerHTML = content;
-                div.style.left = Math.random() * 100 + 'vw';
-                div.style.fontSize = (content.length > 2 ? '14px' : '20px');
-                div.style.animationDuration = (Math.random() * 8 + 7) + 's';
-                div.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(div);
+        // --- Auth Functions ---
+        window.toggleAuthModal = (show) => {
+            document.getElementById('auth-modal').classList.toggle('hidden', !show);
+        };
+
+        window.showTab = (tabId) => {
+            if(['dashboard'].includes(tabId) && !auth.currentUser) {
+                return toggleAuthModal(true);
+            }
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        };
+
+        // 1. Google Login
+        document.getElementById('google-login').onclick = async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const res = await signInWithPopup(auth, provider);
+                await syncUser(res.user);
+                toggleAuthModal(false);
+            } catch (e) { alert(e.message); }
+        };
+
+        // 2. Register / Login Handler
+        document.getElementById('main-auth-btn').onclick = async () => {
+            const id = document.getElementById('reg-id').value;
+            const pass = document.getElementById('reg-p1').value;
+            const name = document.getElementById('reg-name').value;
+
+            if(id.includes('@')) { // Email Auth
+                try {
+                    const res = await createUserWithEmailAndPassword(auth, id, pass);
+                    await syncUser(res.user, name);
+                    toggleAuthModal(false);
+                } catch {
+                    await signInWithEmailAndPassword(auth, id, pass);
+                    toggleAuthModal(false);
+                }
+            } else if (id.startsWith('+')) { // Phone Auth (OTP)
+                const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+                confirmationResult = await signInWithPhoneNumber(auth, id, verifier);
+                document.getElementById('auth-step-1').classList.add('hidden');
+                document.getElementById('auth-otp').classList.remove('hidden');
+            } else {
+                alert("يرجى إدخال إيميل صحيح أو رقم هاتف يبدأ بـ +20");
+            }
+        };
+
+        // 3. Verify OTP
+        document.getElementById('verify-otp-btn').onclick = async () => {
+            const code = document.getElementById('otp-input').value;
+            try {
+                const res = await confirmationResult.confirm(code);
+                await syncUser(res.user, document.getElementById('reg-name').value);
+                location.reload();
+            } catch (e) { alert("الكود خاطئ"); }
+        };
+
+        async function syncUser(user, customName = "") {
+            const userRef = doc(db, "users", user.uid);
+            const snap = await getDoc(userRef);
+            if(!snap.exists()) {
+                await setDoc(userRef, {
+                    name: customName || user.displayName || "مستخدم جديد",
+                    email: user.email || user.phoneNumber,
+                    balance: 0,
+                    role: 'user'
+                });
             }
         }
 
-        window.onload = () => {
-            initBg();
-            setTimeout(() => {
-                document.getElementById('entry-loader').style.opacity = '0';
-                setTimeout(() => document.getElementById('entry-loader').style.display = 'none', 600);
-            }, 1500);
-        };
-
-        const btnStep1 = document.getElementById('btnStep1');
-        const msgBox = document.getElementById('msgBox');
-
-        btnStep1.onclick = async () => {
-            const name = document.getElementById('stuName').value.trim();
-            const phone = document.getElementById('stuPhone').value.trim();
-
-            if(!name || !phone) {
-                msgBox.style.display = 'block';
-                msgBox.style.background = 'rgba(239, 68, 68, 0.1)';
-                msgBox.style.color = '#f87171';
-                msgBox.innerHTML = "يرجى كتابة الاسم ورقم التليفون";
-                return;
-            }
-
-            btnStep1.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
-
-            try {
-                // فحص التكرار (سريع)
-                const studentsRef = ref(db, 'registrations');
-                const phoneQuery = query(studentsRef, orderByChild('phone'), equalTo(phone));
-                const snapshot = await get(phoneQuery);
-
-                if(snapshot.exists()) {
-                    msgBox.style.display = 'block';
-                    msgBox.style.background = 'rgba(234, 179, 8, 0.1)';
-                    msgBox.style.color = '#fbbf24';
-                    msgBox.innerHTML = "أنت مسجل بالفعل يا بطل! ⚽";
-                    btnStep1.innerHTML = 'سجل الآن ⚽';
-                } else {
-                    document.getElementById('termsModal').style.display = 'flex';
-                    btnStep1.innerHTML = 'سجل الآن ⚽';
-                    msgBox.style.display = 'none';
-                }
-            } catch (e) {
-                // إذا حدث خطأ في الشبكة، افتح المودال لتسهيل التسجيل
-                document.getElementById('termsModal').style.display = 'flex';
-                btnStep1.innerHTML = 'سجل الآن ⚽';
-            }
-        };
-
-        document.getElementById('btnFinal').onclick = async () => {
-            if(!document.getElementById('agree').checked) return alert("يجب الموافقة على القوانين أولاً");
+        // --- State Listener ---
+        onAuthStateChanged(auth, (user) => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
             
-            const btn = document.getElementById('btnFinal');
-            btn.innerHTML = '<i class="fas fa-check-circle fa-spin"></i> جاري الحفظ...';
-            btn.disabled = true;
-
-            const data = {
-                name: document.getElementById('stuName').value,
-                grade: document.getElementById('stuGrade').value,
-                group: document.getElementById('stuGroup').value,
-                phone: document.getElementById('stuPhone').value,
-                date: new Date().toLocaleString('ar-EG')
-            };
-
-            try {
-                await push(ref(db, 'registrations'), data);
-                alert("تم تسجيلك بنجاح! رمضان كريم 🌙⚽");
-                location.reload();
-            } catch (e) {
-                alert("حدث خطأ، حاول مرة أخرى");
-                btn.disabled = false;
-                btn.innerHTML = "تأكيد التسجيل النهائي";
+            if (user) {
+                onSnapshot(doc(db, "users", user.uid), (d) => {
+                    if(d.exists()) {
+                        document.getElementById('user-balance').innerText = d.data().balance.toFixed(2) + " EGP";
+                        document.getElementById('profile-name').innerText = d.data().name;
+                        document.getElementById('profile-email').innerText = d.data().email;
+                    }
+                });
             }
-        };
+        });
+
+        document.getElementById('logout-btn').onclick = () => signOut(auth).then(() => location.reload());
     </script>
 </body>
 </html>
