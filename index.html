@@ -9,10 +9,12 @@
         :root {
             --primary-purple: #8a2be2;
             --secondary-yellow: #f1c40f;
-            --dark-bg: #050505;
+            --dark-bg: #0d0d0d; /* أسود أعمق لمزيد من الاحترافية */
+            --light-bg: #1a1a1a;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
             --text-main: #ffffff;
+            --text-mute: #888888;
         }
 
         * {
@@ -29,7 +31,7 @@
             padding-bottom: 80px; /* مساحة للـ bottom nav */
         }
 
-        /* --- شاشة التحميل (Loader) --- */
+        /* --- شاشة التحميل (Loader) الاحترافية --- */
         #loader {
             position: fixed;
             top: 0;
@@ -45,52 +47,79 @@
             transition: opacity 0.5s ease;
         }
 
-        .loader-logo {
-            font-size: 3rem;
-            font-weight: bold;
-            color: white;
+        /* ضع لوجو NOVA الفعلي (image_5.png) هنا كملف 1.png */
+        .loader-logo-container {
+            width: 150px;
+            height: 150px;
             position: relative;
         }
 
-        .loader-star {
-            color: var(--primary-purple);
-            animation: pulse 1.5s infinite;
+        .loader-logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            /* حركة النجمة والخط الأصفر في اللوجو */
+            animation: logo-glow 2s infinite alternate;
+        }
+
+        @keyframes logo-glow {
+            0% { filter: drop-shadow(0 0 5px var(--primary-purple)) drop-shadow(0 0 10px var(--secondary-yellow)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 15px var(--primary-purple)) drop-shadow(0 0 25px var(--secondary-yellow)); transform: scale(1.05); }
         }
 
         .loader-line {
             width: 0;
             height: 4px;
             background: var(--secondary-yellow);
-            margin-top: 10px;
+            margin-top: 20px;
             border-radius: 2px;
             animation: grow 2s forwards;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
         }
 
         @keyframes grow {
             to { width: 150px; }
         }
 
-        /* --- الهيدر والبحث --- */
+        /* --- الهيدر الاحترافي --- */
         header {
-            padding: 15px;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo-box {
             display: flex;
             align-items: center;
             gap: 10px;
-            position: sticky;
-            top: 0;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+        }
+
+        /* ضع لوجو NOVA الفعلي (image_5.png) هنا كملف 1.png */
+        .header-logo-img {
+            width: 35px;
+            height: 35px;
+            object-fit: contain;
+        }
+
+        .header-logo-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-purple);
+        }
+
+        .search-container {
+            flex: 1;
+            margin: 0 15px;
+            position: relative;
         }
 
         .search-bar {
-            flex: 1;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 25px;
@@ -104,60 +133,105 @@
             border: none;
             color: white;
             width: 100%;
-            padding-right: 10px;
+            padding: 0 10px;
             outline: none;
+            font-size: 0.9rem;
         }
 
-        .logo-img {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-purple);
-            border-radius: 50%;
+        .search-bar input::placeholder { color: var(--text-mute); }
+        .search-bar i { color: var(--text-mute); font-size: 1rem; cursor: pointer; }
+
+        /* ضع أيقونة البحث والمايكروفون الفعليين (image_7.png/image_8.png) كملفات 2.png, 3.png */
+        .search-icons-real {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .search-icons-real img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .right-icons {
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 0 0 15px var(--primary-purple);
+            gap: 15px;
+            font-size: 1.1rem;
+            color: var(--primary-purple);
         }
 
-        /* --- Slider --- */
+        /* --- Slider احترافي وقابل للتمرير --- */
         .slider-container {
-            width: 95%;
-            margin: 15px auto;
+            width: 100%;
             height: 180px;
+            margin-top: 15px;
             overflow: hidden;
-            border-radius: 20px;
             position: relative;
+            cursor: grab;
         }
 
         .slides {
             display: flex;
-            width: 200%;
+            width: 200%; /* عدد الصور * 100 */
             height: 100%;
             transition: transform 0.5s ease-in-out;
+            touch-action: pan-y;
         }
 
+        /* ضع صور السلايدر (المكافآت والدعم) كملفات 4.png, 5.png */
         .slide {
-            width: 50%;
+            width: 50%; /* 100 / عدد الصور */
+            height: 100%;
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
-            background: linear-gradient(45deg, #1a1a1a, #2c3e50);
-            border: 2px solid var(--glass-border);
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            border-radius: 15px;
+            margin: 0 15px; /* مسافة بين الشرائح */
         }
 
-        /* --- الأقسام والكروت --- */
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+        }
+
+        .dot.active { background: var(--secondary-yellow); }
+
+        /* --- الأقسام والكروت - مطابقة للصورة 1 --- */
         .section-title {
-            padding: 15px;
+            padding: 20px 15px 10px;
             font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary-yellow);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .section-title span { color: var(--secondary-yellow); cursor: pointer; }
+        .section-title span { color: var(--primary-purple); cursor: pointer; font-size: 0.9rem; }
 
         .cards-grid {
             display: grid;
@@ -167,50 +241,75 @@
         }
 
         .card {
-            background: var(--glass-bg);
+            background: var(--light-bg);
             border: 1px solid var(--glass-border);
             border-radius: 15px;
-            padding: 15px 10px;
+            overflow: hidden;
             text-align: center;
             transition: 0.3s;
             cursor: pointer;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(138,43,226,0.3); }
         .card:active { transform: scale(0.95); }
 
-        .card i {
-            font-size: 2rem;
-            color: var(--primary-purple);
-            margin-bottom: 10px;
-            display: block;
+        /* ضع صور الألعاب الملونة كملفات 6.png, 7.png, 8.png, إلخ */
+        .card-img-container {
+            width: 100%;
+            height: 100px;
+            position: relative;
         }
 
-        .card p { font-size: 0.85rem; }
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        /* --- شريط التنقل السفلي (Bottom Nav) --- */
+        .card-content {
+            padding: 10px 5px;
+            color: white;
+        }
+
+        .card-title { font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; }
+
+        .product-badge {
+            background: var(--primary-purple);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* --- شريط التنقل السفلي (Bottom Nav) الاحترافي --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(13, 13, 13, 0.98);
             backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
-            padding: 12px 0;
+            padding: 15px 0;
             border-top: 1px solid var(--glass-border);
             z-index: 1000;
         }
 
         .nav-item {
             text-align: center;
-            color: #888;
-            font-size: 0.7rem;
+            color: var(--text-mute);
+            font-size: 0.75rem;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .nav-item.active { color: var(--secondary-yellow); }
-        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+        .nav-item.active { color: var(--primary-purple); }
+        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 5px; }
 
         /* --- الصفحات الفرعية (Hidden by default) --- */
         .page { display: none; padding: 20px; animation: fadeIn 0.4s; }
@@ -221,42 +320,69 @@
         /* --- صفحة الملف الشخصي --- */
         .profile-header {
             background: var(--glass-bg);
-            padding: 20px;
+            padding: 30px;
             border-radius: 20px;
             text-align: center;
             border: 1px solid var(--glass-border);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .user-avatar {
+            font-size: 5rem;
+            color: var(--primary-purple);
+            margin-bottom: 15px;
         }
 
         .btn-main {
             background: var(--primary-purple);
             color: white;
             border: none;
-            padding: 10px 25px;
-            border-radius: 10px;
-            margin-top: 10px;
+            padding: 12px 30px;
+            border-radius: 12px;
+            margin-top: 15px;
             cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.3s;
         }
 
-        .settings-list { margin-top: 20px; }
+        .btn-main:hover { background: #7a1fd4; }
+
+        .settings-list { margin-top: 30px; }
         .settings-item {
             display: flex;
             justify-content: space-between;
-            padding: 15px;
-            border-bottom: 1px solid var(--glass-border);
+            align-items: center;
+            padding: 18px;
+            background: var(--light-bg);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
         }
 
-        /* --- صفحة التسجيل --- */
+        .settings-item span:first-child { color: white; font-weight: 500; }
+        .settings-item span:last-child { color: var(--text-mute); }
+        .settings-item i { color: var(--primary-purple); }
+
+        /* --- صفحة التسجيل - مطابقة للصورة 2 --- */
         .auth-card {
             background: var(--glass-bg);
-            padding: 30px 20px;
+            padding: 40px 30px;
             border-radius: 30px;
             border: 1px solid var(--glass-border);
-            margin-top: 50px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
         }
+
+        .close-auth { position: absolute; top: 15px; left: 15px; font-size: 1.5rem; color: var(--text-mute); cursor: pointer; }
+
+        .auth-title { text-align: center; margin-bottom: 30px; font-weight: bold; color: white; }
 
         .social-btn {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin-bottom: 15px;
             border-radius: 12px;
             border: 1px solid var(--glass-border);
@@ -265,86 +391,172 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: 0.3s;
         }
+
+        .social-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        .social-btn i { font-size: 1.3rem; }
+
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <div class="loader-logo">NO<span class="loader-star">★</span>A</div>
+        <div class="loader-logo-container">
+            <img src="1.png" alt="NOVA">
+        }
         <div class="loader-line"></div>
     </div>
 
     <div id="app">
         
         <header>
-            <div class="search-bar">
-                <i class="fa fa-search"></i>
-                <input type="text" placeholder="ابحث عن المنتجات...">
-                <i class="fa fa-microphone"></i>
-            </div>
-            <div class="logo-img">N</div>
+            <div class="logo-box">
+                <img src="1.png" alt="N" class="header-logo-img">
+                <span class="header-logo-text">NOVA</span>
+            }
+            <div class="search-container">
+                <div class="search-bar">
+                    <div class="search-icons-real">
+                        <img src="2.png" alt="S">
+                        <img src="3.png" alt="M">
+                    }
+                    <input type="text" placeholder="ابحث عن المنتجات...">
+                }
+            }
+            <div class="right-icons">
+                <i class="fa fa-bell"></i>
+                <i class="fa fa-shopping-cart"></i>
+            }
         </header>
 
         <div id="home" class="page active">
-            <div class="slider-container">
+            <div class="slider-container" id="sliderContainer">
                 <div class="slides" id="mainSlider">
-                    <div class="slide" style="color: var(--secondary-yellow);">هدية مجانية عند أول شحن! 🎁</div>
-                    <div class="slide" style="color: #00ffcc;">دعم فني متاح 24/7 🎧</div>
+                    <div class="slide" style="background-image: url('4.png');">هدية مجانية عند أول شحن! 🎁</div>
+                    <div class="slide" style="background-image: url('5.png');">دعم فني متاح 24/7 🎧</div>
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
                 </div>
             </div>
 
             <div class="section-title">شحن الألعاب <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
             <div class="cards-grid">
-                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-gamepad"></i> <p>ببجي موبايل</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-fire"></i> <p>فري فاير</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-gun"></i> <p>كول اوف ديوتي</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-ghost"></i> <p>بلود سترايك</p> </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="6.png" alt="PUBG"></div>
+                    <div class="card-content">
+                        <div class="card-title">شدات ببجي موبايل</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 8 منتج</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="7.png" alt="Free Fire"></div>
+                    <div class="card-content">
+                        <div class="card-title">جواهر فري فاير</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 5 منتج</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="8.png" alt="Card"></div>
+                    <div class="card-content">
+                        <div class="card-title">بطاقات الألعاب</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 35 فئة</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="9.png" alt="LordMobile"></div>
+                    <div class="card-content">
+                        <div class="card-title">لوردس موبايل</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 3 منتج</div>
+                    </div>
+                </div>
             </div>
 
             <div class="section-title">خدمات السوشيال ميديا <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
             <div class="cards-grid">
-                <div class="card" onclick="showEmpty()"> <i class="fab fa-instagram"></i> <p>انستقرام</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fab fa-tiktok"></i> <p>تيك توك</p> </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="10.png" alt="Insta"></div>
+                    <div class="card-content">
+                        <div class="card-title">انستقرام</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 10 خدمات</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="11.png" alt="Tiktok"></div>
+                    <div class="card-content">
+                        <div class="card-title">تيك توك</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 8 خدمات</div>
+                    </div>
+                </div>
             </div>
 
             <div class="section-title">بيع و شراء اكونتات <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
-            <p style="padding: 0 15px; opacity: 0.5; font-size: 0.8rem;">(لم يتم إضافة أي اكونتات بعد)</p>
+            <p style="padding: 10px 15px; color: var(--text-mute); font-size: 0.85rem;">(لم يتم إضافة أي اكونتات بعد)</p>
 
             <div class="section-title">خدمات البرمجة <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
             <div class="cards-grid">
-                <div class="card" onclick="showEmpty()"> <i class="fa fa-code"></i> <p>إنشاء موقع</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fa fa-mobile-alt"></i> <p>إنشاء تطبيق</p> </div>
-                <div class="card" onclick="showEmpty()"> <i class="fa fa-bug"></i> <p>تصحيح أخطاء</p> </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="12.png" alt="Web"></div>
+                    <div class="card-content">
+                        <div class="card-title">إنشاء موقع</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 4 فئات</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="13.png" alt="App"></div>
+                    <div class="card-content">
+                        <div class="card-title">إنشاء تطبيق</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> 3 فئات</div>
+                    </div>
+                </div>
+                <div class="card" onclick="showEmpty()">
+                    <div class="card-img-container"><img src="14.png" alt="Bug"></div>
+                    <div class="card-content">
+                        <div class="card-title">تصحيح أخطاء</div>
+                        <div class="product-badge"><i class="fa fa-tag"></i> فئة واحدة</div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div id="offers" class="page">
+            <h2 style="text-align: center; color: var(--primary-purple); margin-top: 50px;">قريباً... صفحة العروض</h2>
+        </div>
+
+        <div id="points" class="page">
+            <h2 style="text-align: center; color: var(--primary-purple); margin-top: 50px;">قريباً... صفحة النقاط</h2>
         </div>
 
         <div id="profile" class="page">
             <div class="profile-header">
-                <i class="fa fa-user-circle" style="font-size: 4rem; color: var(--primary-purple);"></i>
-                <h3>أنت لم تسجل دخولك</h3>
+                <div class="user-avatar"><i class="fa fa-user-circle"></i></div>
+                <h3 style="margin-bottom: 5px;">أنت لم تسجل دخولك</h3>
+                <p style="color: var(--text-mute); font-size: 0.9rem;">أنشئ حساباً للاستمتاع بكافة الخدمات</p>
                 <button class="btn-main" onclick="navigateTo('register')">إنشاء حساب جديد</button>
             </div>
 
             <div class="settings-list">
                 <div class="settings-item"><span>اللغة</span> <span>العربية <i class="fa fa-chevron-left"></i></span></div>
-                <div class="settings-item"><span>الوضع المظلم</span> <i class="fa fa-toggle-on" style="color: var(--secondary-yellow);"></i></div>
+                <div class="settings-item"><span>الوضع المظلم</span> <i class="fa fa-toggle-on" style="color: var(--primary-purple);"></i></div>
                 <div class="settings-item"><span>المساعدة والدعم</span> <i class="fa fa-chevron-left"></i></div>
                 <div class="settings-item"><span>الشروط والأحكام</span> <i class="fa fa-chevron-left"></i></div>
             </div>
         </div>
 
         <div id="register" class="page">
-            <i class="fa fa-times" onclick="navigateTo('profile')" style="font-size: 1.5rem; cursor: pointer;"></i>
             <div class="auth-card">
-                <h2 style="text-align: center; margin-bottom: 20px;">سجل حساب جديد</h2>
-                <div class="social-btn"><i class="fab fa-google"></i> سجل باستخدام جوجل</div>
-                <div class="social-btn"><i class="fab fa-apple"></i> سجل باستخدام آبل</div>
-                <div class="social-btn"><i class="fab fa-facebook"></i> سجل باستخدام فيسبوك</div>
-                <p style="text-align: center; margin: 15px 0;">أو</p>
-                <div class="social-btn">استمر باستخدام البريد الإلكتروني</div>
+                <i class="fa fa-times close-auth" onclick="navigateTo('profile')"></i>
+                <h2 class="auth-title">سجل حساب جديد</h2>
+                <div class="social-btn"><i class="fab fa-google" style="color: #db4437;"></i> سجل باستخدام جوجل</div>
+                <div class="social-btn"><i class="fab fa-apple" style="color: #ffffff;"></i> سجل باستخدام آبل</div>
+                <div class="social-btn"><i class="fab fa-facebook" style="color: #4267b2;"></i> سجل باستخدام فيسبوك</div>
+                <p style="text-align: center; margin: 15px 0; color: var(--text-mute);">أو</p>
+                <div class="social-btn"><i class="fa fa-envelope" style="color: var(--secondary-yellow);"></i> استمر باستخدام البريد الإلكتروني</div>
             </div>
         </div>
 
@@ -353,11 +565,11 @@
                 <i class="fa fa-th-large"></i>
                 <span>خدماتنا</span>
             </div>
-            <div class="nav-item" onclick="showEmpty()">
+            <div class="nav-item" onclick="navigateTo('offers')">
                 <i class="fa fa-tag"></i>
                 <span>العروض</span>
             </div>
-            <div class="nav-item" onclick="showEmpty()">
+            <div class="nav-item" onclick="navigateTo('points')">
                 <i class="fa fa-coins"></i>
                 <span>النقاط</span>
             </div>
@@ -370,25 +582,109 @@
     </div>
 
     <script>
-        // اخفاء اللودر بعد ثانيتين
+        // 1. اخفاء اللودر بعد ثانيتين ونصف
         window.onload = () => {
             setTimeout(() => {
                 document.getElementById('loader').style.opacity = '0';
                 setTimeout(() => {
                     document.getElementById('loader').style.display = 'none';
                 }, 500);
-            }, 2000);
+            }, 2500); // زيادة الوقت قليلاً للحركة
         };
 
-        // التحكم في السلايدر
+        // 2. التحكم في السلايدر (تحريك تلقائي ويدوي)
         let currentSlide = 0;
+        const numSlides = 2; // عدد الصور في السلايدر
         const slider = document.getElementById('mainSlider');
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % 2;
-            slider.style.transform = `translateX(${currentSlide * 100}%)`;
-        }, 3000);
+        const dots = document.querySelectorAll('.dot');
+        const container = document.getElementById('sliderContainer');
 
-        // التنقل بين الصفحات
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let animationID = 0;
+
+        // التحريك التلقائي كل 3 ثوانٍ
+        let autoSlideInterval = setInterval(autoSlide, 3000);
+
+        function autoSlide() {
+            currentSlide = (currentSlide + 1) % numSlides;
+            updateSlider();
+        }
+
+        // التمرير باللمس (Touch Events)
+        container.addEventListener('touchstart', touchStart);
+        container.addEventListener('touchend', touchEnd);
+        container.addEventListener('touchmove', touchMove);
+
+        // التمرير بالفأرة (Mouse Events)
+        container.addEventListener('mousedown', touchStart);
+        container.addEventListener('mouseup', touchEnd);
+        container.addEventListener('mouseleave', touchEnd);
+        container.addEventListener('mousemove', touchMove);
+
+        function touchStart(event) {
+            isDragging = true;
+            startPos = getPositionX(event);
+            animationID = requestAnimationFrame(animation);
+            container.style.cursor = 'grabbing';
+            clearInterval(autoSlideInterval); // إيقاف التحريك التلقائي عند السحب
+        }
+
+        function touchEnd() {
+            isDragging = false;
+            cancelAnimationFrame(animationID);
+            const movedBy = currentTranslate - prevTranslate;
+
+            if (movedBy < -100 && currentSlide < numSlides - 1) currentSlide += 1;
+            if (movedBy > 100 && currentSlide > 0) currentSlide -= 1;
+
+            updateSlider();
+            container.style.cursor = 'grab';
+            autoSlideInterval = setInterval(autoSlide, 3000); // إعادة التحريك التلقائي
+        }
+
+        function touchMove(event) {
+            if (isDragging) {
+                const currentPosition = getPositionX(event);
+                currentTranslate = prevTranslate + currentPosition - startPos;
+            }
+        }
+
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function animation() {
+            setSliderPosition();
+            if (isDragging) requestAnimationFrame(animation);
+        }
+
+        function setSliderPosition() {
+            slider.style.transform = `translateX(${currentTranslate}px)`;
+        }
+
+        function updateSlider() {
+            currentTranslate = currentSlide * -container.offsetWidth;
+            prevTranslate = currentTranslate;
+            setSliderPosition();
+            
+            // تحديث النقاط
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[currentSlide].classList.add('active');
+        }
+
+        // إتاحة النقر على النقاط
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider();
+            });
+        });
+
+
+        // 3. التنقل بين الصفحات
         function navigateTo(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(pageId).classList.add('active');
@@ -396,10 +692,12 @@
             // تحديث حالة الأيقونات في الـ Nav
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             if(pageId === 'home') document.querySelectorAll('.nav-item')[0].classList.add('active');
-            if(pageId === 'profile') document.querySelectorAll('.nav-item')[3].classList.add('active');
+            if(pageId === 'offers') document.querySelectorAll('.nav-item')[1].classList.add('active');
+            if(pageId === 'points') document.querySelectorAll('.nav-item')[2].classList.add('active');
+            if(pageId === 'profile' || pageId === 'register') document.querySelectorAll('.nav-item')[3].classList.add('active');
         }
 
-        // رسالة "لم يتم إضافة عروض"
+        // 4. رسالة "لم يتم إضافة عروض"
         function showEmpty() {
             alert("عذراً، لم يتم إضافة أي عروض أو بيانات لهذا القسم بعد.");
         }
