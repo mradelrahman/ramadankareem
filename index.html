@@ -3,202 +3,406 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOVAx | Gaming & Social Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <title>NOVA | منصة الخدمات المتكاملة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #8b5cf6; --secondary: #06b6d4; --dark: #0f172a; }
-        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: #fff; }
-        .orbitron { font-family: 'Orbitron', sans-serif; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-        .neon-btn { background: linear-gradient(45deg, var(--primary), var(--secondary)); transition: 0.3s; }
-        .neon-btn:hover { box-shadow: 0 0 20px rgba(139, 92, 246, 0.5); transform: translateY(-2px); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        :root {
+            --primary-purple: #8a2be2;
+            --secondary-yellow: #f1c40f;
+            --dark-bg: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 80px; /* مساحة للـ bottom nav */
+        }
+
+        /* --- شاشة التحميل (Loader) --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader-logo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            position: relative;
+        }
+
+        .loader-star {
+            color: var(--primary-purple);
+            animation: pulse 1.5s infinite;
+        }
+
+        .loader-line {
+            width: 0;
+            height: 4px;
+            background: var(--secondary-yellow);
+            margin-top: 10px;
+            border-radius: 2px;
+            animation: grow 2s forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes grow {
+            to { width: 150px; }
+        }
+
+        /* --- الهيدر والبحث --- */
+        header {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .search-bar {
+            flex: 1;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+        }
+
+        .search-bar input {
+            background: none;
+            border: none;
+            color: white;
+            width: 100%;
+            padding-right: 10px;
+            outline: none;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--primary-purple);
+        }
+
+        /* --- Slider --- */
+        .slider-container {
+            width: 95%;
+            margin: 15px auto;
+            height: 180px;
+            overflow: hidden;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .slides {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1a1a1a, #2c3e50);
+            border: 2px solid var(--glass-border);
+        }
+
+        /* --- الأقسام والكروت --- */
+        .section-title {
+            padding: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title span { color: var(--secondary-yellow); cursor: pointer; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            gap: 15px;
+            padding: 0 15px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 15px 10px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:active { transform: scale(0.95); }
+
+        .card i {
+            font-size: 2rem;
+            color: var(--primary-purple);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card p { font-size: 0.85rem; }
+
+        /* --- شريط التنقل السفلي (Bottom Nav) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #888;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item.active { color: var(--secondary-yellow); }
+        .nav-item i { font-size: 1.3rem; display: block; margin-bottom: 4px; }
+
+        /* --- الصفحات الفرعية (Hidden by default) --- */
+        .page { display: none; padding: 20px; animation: fadeIn 0.4s; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- صفحة الملف الشخصي --- */
+        .profile-header {
+            background: var(--glass-bg);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-main {
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .settings-list { margin-top: 20px; }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        /* --- صفحة التسجيل --- */
+        .auth-card {
+            background: var(--glass-bg);
+            padding: 30px 20px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            margin-top: 50px;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
-    <div id="loader" class="fixed inset-0 z-[300] bg-slate-950 flex items-center justify-center transition-opacity duration-500">
-        <h1 class="orbitron text-4xl font-black text-purple-500 animate-pulse">NOVA<span class="text-white text-2xl">x</span></h1>
+    <div id="loader">
+        <div class="loader-logo">NO<span class="loader-star">★</span>A</div>
+        <div class="loader-line"></div>
     </div>
 
-    <div id="auth-modal" class="fixed inset-0 z-[200] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 hidden">
-        <div class="glass w-full max-w-md p-8 rounded-3xl relative">
-            <button onclick="toggleAuthModal(false)" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    <div id="app">
+        
+        <header>
+            <div class="search-bar">
+                <i class="fa fa-search"></i>
+                <input type="text" placeholder="ابحث عن المنتجات...">
+                <i class="fa fa-microphone"></i>
+            </div>
+            <div class="logo-img">N</div>
+        </header>
+
+        <div id="home" class="page active">
+            <div class="slider-container">
+                <div class="slides" id="mainSlider">
+                    <div class="slide" style="color: var(--secondary-yellow);">هدية مجانية عند أول شحن! 🎁</div>
+                    <div class="slide" style="color: #00ffcc;">دعم فني متاح 24/7 🎧</div>
+                </div>
+            </div>
+
+            <div class="section-title">شحن الألعاب <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
+            <div class="cards-grid">
+                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-gamepad"></i> <p>ببجي موبايل</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-fire"></i> <p>فري فاير</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-gun"></i> <p>كول اوف ديوتي</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fa-solid fa-ghost"></i> <p>بلود سترايك</p> </div>
+            </div>
+
+            <div class="section-title">خدمات السوشيال ميديا <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
+            <div class="cards-grid">
+                <div class="card" onclick="showEmpty()"> <i class="fab fa-instagram"></i> <p>انستقرام</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fab fa-tiktok"></i> <p>تيك توك</p> </div>
+            </div>
+
+            <div class="section-title">بيع و شراء اكونتات <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
+            <p style="padding: 0 15px; opacity: 0.5; font-size: 0.8rem;">(لم يتم إضافة أي اكونتات بعد)</p>
+
+            <div class="section-title">خدمات البرمجة <span>عرض الكل <i class="fa fa-chevron-left"></i></span></div>
+            <div class="cards-grid">
+                <div class="card" onclick="showEmpty()"> <i class="fa fa-code"></i> <p>إنشاء موقع</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fa fa-mobile-alt"></i> <p>إنشاء تطبيق</p> </div>
+                <div class="card" onclick="showEmpty()"> <i class="fa fa-bug"></i> <p>تصحيح أخطاء</p> </div>
+            </div>
+        </div>
+
+        <div id="profile" class="page">
+            <div class="profile-header">
+                <i class="fa fa-user-circle" style="font-size: 4rem; color: var(--primary-purple);"></i>
+                <h3>أنت لم تسجل دخولك</h3>
+                <button class="btn-main" onclick="navigateTo('register')">إنشاء حساب جديد</button>
+            </div>
+
+            <div class="settings-list">
+                <div class="settings-item"><span>اللغة</span> <span>العربية <i class="fa fa-chevron-left"></i></span></div>
+                <div class="settings-item"><span>الوضع المظلم</span> <i class="fa fa-toggle-on" style="color: var(--secondary-yellow);"></i></div>
+                <div class="settings-item"><span>المساعدة والدعم</span> <i class="fa fa-chevron-left"></i></div>
+                <div class="settings-item"><span>الشروط والأحكام</span> <i class="fa fa-chevron-left"></i></div>
+            </div>
+        </div>
+
+        <div id="register" class="page">
+            <i class="fa fa-times" onclick="navigateTo('profile')" style="font-size: 1.5rem; cursor: pointer;"></i>
+            <div class="auth-card">
+                <h2 style="text-align: center; margin-bottom: 20px;">سجل حساب جديد</h2>
+                <div class="social-btn"><i class="fab fa-google"></i> سجل باستخدام جوجل</div>
+                <div class="social-btn"><i class="fab fa-apple"></i> سجل باستخدام آبل</div>
+                <div class="social-btn"><i class="fab fa-facebook"></i> سجل باستخدام فيسبوك</div>
+                <p style="text-align: center; margin: 15px 0;">أو</p>
+                <div class="social-btn">استمر باستخدام البريد الإلكتروني</div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="navigateTo('home')">
+                <i class="fa fa-th-large"></i>
+                <span>خدماتنا</span>
+            </div>
+            <div class="nav-item" onclick="showEmpty()">
+                <i class="fa fa-tag"></i>
+                <span>العروض</span>
+            </div>
+            <div class="nav-item" onclick="showEmpty()">
+                <i class="fa fa-coins"></i>
+                <span>النقاط</span>
+            </div>
+            <div class="nav-item" onclick="navigateTo('profile')">
+                <i class="fa fa-user"></i>
+                <span>الملف الشخصي</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <script>
+        // اخفاء اللودر بعد ثانيتين
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loader').style.display = 'none';
+                }, 500);
+            }, 2000);
+        };
+
+        // التحكم في السلايدر
+        let currentSlide = 0;
+        const slider = document.getElementById('mainSlider');
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 2;
+            slider.style.transform = `translateX(${currentSlide * 100}%)`;
+        }, 3000);
+
+        // التنقل بين الصفحات
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
             
-            <div id="auth-step-1">
-                <h2 class="orbitron text-2xl font-bold text-center text-purple-500 mb-6">WELCOME TO NOVAx</h2>
-                
-                <div class="space-y-4">
-                    <button id="google-login" class="w-full bg-white text-black py-3 rounded-xl font-bold flex items-center justify-center gap-3">
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" width="18"> الدخول عبر جوجل
-                    </button>
-
-                    <div class="relative py-2"><hr class="border-white/10"><span class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-900 px-2 text-xs text-gray-500">أو يدوي</span></div>
-
-                    <input type="text" id="reg-name" placeholder="اسم المستخدم" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
-                    <input type="text" id="reg-id" placeholder="الجيميل أو رقم الهاتف (+20)" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
-                    <input type="password" id="reg-p1" placeholder="كلمة المرور" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl outline-none focus:border-purple-500">
-                    
-                    <div id="recaptcha-container"></div> <button id="main-auth-btn" class="neon-btn w-full py-4 rounded-xl font-black">متابعة</button>
-                </div>
-            </div>
-
-            <div id="auth-otp" class="hidden text-center">
-                <h2 class="text-xl font-bold mb-4">أدخل كود التحقق</h2>
-                <p class="text-gray-400 text-sm mb-6">لقد أرسلنا كوداً مكوناً من 6 أرقام</p>
-                <input type="text" id="otp-input" placeholder="0 0 0 0 0 0" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl text-center text-2xl tracking-widest outline-none">
-                <button id="verify-otp-btn" class="neon-btn w-full py-4 rounded-xl font-black mt-6">تأكيد الرمز</button>
-            </div>
-        </div>
-    </div>
-
-    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="orbitron text-2xl font-black cursor-pointer" onclick="showTab('home')">NOVA<span class="text-purple-500">x</span></h1>
-            <div class="flex items-center gap-4">
-                <div class="glass px-4 py-1.5 rounded-full text-cyan-400 font-bold" id="user-balance">0.00 EGP</div>
-                <button onclick="showTab('dashboard')" class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center"><i class="fa-solid fa-user"></i></button>
-            </div>
-        </div>
-    </nav>
-
-    <main class="container mx-auto px-4 pt-28 pb-12">
-        <section id="home" class="tab-content active text-center">
-            <h2 class="text-5xl font-black mb-8 leading-tight">شحن الألعاب <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-400">بلمسة واحدة</span></h2>
-            <button onclick="showTab('services')" class="neon-btn px-12 py-4 rounded-full font-bold text-lg">تصفح الخدمات</button>
-        </section>
-
-        <section id="services" class="tab-content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="services-grid">
-                <div onclick="checkAndOrder('PUBG')" class="glass p-6 rounded-3xl cursor-pointer hover:border-purple-500 transition">
-                    <img src="https://files.freemyfire.com/posts/pubg-mobile.jpg" class="w-full h-40 object-cover rounded-2xl mb-4">
-                    <h3 class="text-xl font-bold">ببجي موبايل (UC)</h3>
-                    <p class="text-gray-500 text-sm">شحن فوري عبر الـ ID</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="dashboard" class="tab-content">
-            <div class="glass p-8 rounded-3xl max-w-lg mx-auto">
-                <h3 class="text-2xl font-black mb-2" id="profile-name">مستخدم</h3>
-                <p class="text-gray-500 mb-6" id="profile-email">---</p>
-                <button id="logout-btn" class="text-red-500 font-bold hover:underline">تسجيل الخروج</button>
-            </div>
-        </section>
-    </main>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-
-        // Your Config
-        const firebaseConfig = {
-            apiKey: "AIzaSyCsZBSHCRHir1Qxk5opZLZsfazCL7IOAcc",
-            authDomain: "novax-4249e.firebaseapp.com",
-            projectId: "novax-4249e",
-            storageBucket: "novax-4249e.firebasestorage.app",
-            messagingSenderId: "705521379752",
-            appId: "1:705521379752:web:10800a86fa18a8b1eb959d",
-            measurementId: "G-VSXCYH6WQJ"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        let confirmationResult = null;
-
-        // --- Auth Functions ---
-        window.toggleAuthModal = (show) => {
-            document.getElementById('auth-modal').classList.toggle('hidden', !show);
-        };
-
-        window.showTab = (tabId) => {
-            if(['dashboard'].includes(tabId) && !auth.currentUser) {
-                return toggleAuthModal(true);
-            }
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-        };
-
-        // 1. Google Login
-        document.getElementById('google-login').onclick = async () => {
-            const provider = new GoogleAuthProvider();
-            try {
-                const res = await signInWithPopup(auth, provider);
-                await syncUser(res.user);
-                toggleAuthModal(false);
-            } catch (e) { alert(e.message); }
-        };
-
-        // 2. Register / Login Handler
-        document.getElementById('main-auth-btn').onclick = async () => {
-            const id = document.getElementById('reg-id').value;
-            const pass = document.getElementById('reg-p1').value;
-            const name = document.getElementById('reg-name').value;
-
-            if(id.includes('@')) { // Email Auth
-                try {
-                    const res = await createUserWithEmailAndPassword(auth, id, pass);
-                    await syncUser(res.user, name);
-                    toggleAuthModal(false);
-                } catch {
-                    await signInWithEmailAndPassword(auth, id, pass);
-                    toggleAuthModal(false);
-                }
-            } else if (id.startsWith('+')) { // Phone Auth (OTP)
-                const verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
-                confirmationResult = await signInWithPhoneNumber(auth, id, verifier);
-                document.getElementById('auth-step-1').classList.add('hidden');
-                document.getElementById('auth-otp').classList.remove('hidden');
-            } else {
-                alert("يرجى إدخال إيميل صحيح أو رقم هاتف يبدأ بـ +20");
-            }
-        };
-
-        // 3. Verify OTP
-        document.getElementById('verify-otp-btn').onclick = async () => {
-            const code = document.getElementById('otp-input').value;
-            try {
-                const res = await confirmationResult.confirm(code);
-                await syncUser(res.user, document.getElementById('reg-name').value);
-                location.reload();
-            } catch (e) { alert("الكود خاطئ"); }
-        };
-
-        async function syncUser(user, customName = "") {
-            const userRef = doc(db, "users", user.uid);
-            const snap = await getDoc(userRef);
-            if(!snap.exists()) {
-                await setDoc(userRef, {
-                    name: customName || user.displayName || "مستخدم جديد",
-                    email: user.email || user.phoneNumber,
-                    balance: 0,
-                    role: 'user'
-                });
-            }
+            // تحديث حالة الأيقونات في الـ Nav
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if(pageId === 'home') document.querySelectorAll('.nav-item')[0].classList.add('active');
+            if(pageId === 'profile') document.querySelectorAll('.nav-item')[3].classList.add('active');
         }
 
-        // --- State Listener ---
-        onAuthStateChanged(auth, (user) => {
-            document.getElementById('loader').style.opacity = '0';
-            setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
-            
-            if (user) {
-                onSnapshot(doc(db, "users", user.uid), (d) => {
-                    if(d.exists()) {
-                        document.getElementById('user-balance').innerText = d.data().balance.toFixed(2) + " EGP";
-                        document.getElementById('profile-name').innerText = d.data().name;
-                        document.getElementById('profile-email').innerText = d.data().email;
-                    }
-                });
-            }
-        });
-
-        document.getElementById('logout-btn').onclick = () => signOut(auth).then(() => location.reload());
+        // رسالة "لم يتم إضافة عروض"
+        function showEmpty() {
+            alert("عذراً، لم يتم إضافة أي عروض أو بيانات لهذا القسم بعد.");
+        }
     </script>
 </body>
 </html>
